@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../Assests/Login/background_image.jpg";
 import Header from "./Header";
 import Validate from "../Utils/Validate";
@@ -11,10 +10,10 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
+import { avatar } from "../Utils/constant";
 function SignIn() {
   const [signUp, setSignUp] = useState(false);
   const [message, setmessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handlesign = () => {
     setSignUp(!signUp);
@@ -23,14 +22,14 @@ function SignIn() {
   const email = useRef(null);
   const password = useRef(null);
   const handleSubmit = () => {
-    console.log(
-      email.current.value,
-      password.current.value,
-      name.current.value
-    );
+    // console.log(
+    //   email.current.value,
+    //   password.current.value,
+    //   name.current.value
+    // );
     const validation = Validate(email.current.value, password.current.value);
     setmessage(validation);
-    console.log(validation);
+    // console.log(validation);
     if (validation) return;
 
     if (signUp) {
@@ -43,10 +42,10 @@ function SignIn() {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           return updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/12824231?v=4",
+            photoURL:avatar,
           })
             .then(() => {
               const updatedUser = auth.currentUser;
@@ -58,7 +57,6 @@ function SignIn() {
                   photoURL: updatedUser.photoURL,
                 })
               );
-              navigate("/");
             })
             .catch((error) => {
               setmessage(error.message);
@@ -80,7 +78,7 @@ function SignIn() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           // ...
         })
         .catch((error) => {
@@ -88,7 +86,6 @@ function SignIn() {
           const errorMessage = error.message;
           setmessage(errorCode, errorMessage);
         });
-      navigate("/");
     }
   };
   return (
