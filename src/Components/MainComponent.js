@@ -1,19 +1,15 @@
-import React from "react";
-import FirstHomeComponent from "./FirstHomeComponent";
-import { useSelector } from "react-redux";
-import SecondHomeComponent from "./SecondHomeComponent";
+import FirstContainer from "./FirstContainer";
+import SecondConatiner from "./SecondConatiner";
+
 const MainComponent = () => {
-  const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  // console.log(movies);
-  if (!movies) return;
-  const mainMovie = movies[0];
-  // console.log(mainMovie);
-  const { title, overview, id } = mainMovie;
   return (
     <>
-      <FirstHomeComponent title={title} overview={overview} />
-
-      <SecondHomeComponent movieId={id} />
+     <div className=" bg-black ">
+     <FirstContainer />
+    <div className=" -mt-40 relative z-10">
+    <SecondConatiner />
+    </div>
+     </div>
     </>
   );
 };

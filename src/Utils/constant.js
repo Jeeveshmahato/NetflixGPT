@@ -10,3 +10,4 @@ export const API_OPTIONS = {
   },
 };
 const API_key = "b94b9ae4b33a7838558e962c3bd74f82";
+export const Image_URL="https://image.tmdb.org/t/p/w500/"
