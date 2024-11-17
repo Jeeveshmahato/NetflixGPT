@@ -12,7 +12,7 @@ const SecondConatiner = () => {
 
   return (
     <>
-      <div className="bg-black flex flex-col gap-10">
+      <div className=" flex flex-col gap-10">
         <MoviesList title={"NowPlaying"} movies={playingMovies} />
         <MoviesList title={"PopularPlaying"} movies={popularMovies} />
         <MoviesList title={"TopPlaying"} movies={topMovies} />

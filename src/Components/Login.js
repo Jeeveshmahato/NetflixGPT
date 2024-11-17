@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
-import { avatar } from "../Utils/constant";
+import { avatar, backgroundImage } from "../Utils/constant";
 function SignIn() {
   const [signUp, setSignUp] = useState(false);
   const [message, setmessage] = useState(null);
@@ -92,7 +92,7 @@ function SignIn() {
     <div
       className="flex relative  flex-col h-screen bg-cover"
       style={{
-        backgroundImage: `url(${BackgroundImage})`,
+        backgroundImage: `url(${backgroundImage})`,
       }}
     >
       <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
