@@ -9,7 +9,7 @@
         -Tailer in Background
         -Title & Description
         -moviewSuggestions
-            -Movelists * N
+            -Movelists * n
 -NetflixGPT
     -Serach Bar
     -Movie Suggestions
