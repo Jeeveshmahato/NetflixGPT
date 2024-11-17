@@ -49,13 +49,13 @@ const Header = () => {
   return (
     <>
       <div className="  relative  bg-gradient-to-b from-black  ">
-        <div className=" absolute z-10 px-32 flex justify-between w-full">
+        <div className=" absolute z-10 px-[20px] lg:px-32 flex lg:flex-row flex-col justify-between w-full">
           {" "}
           {/* Netflix Logo */}
-          <img className=" w-40" src={Logo} alt="lo  go" />
+          <img className=" w-40 mx-auto" src={Logo} alt="lo  go" />
           {/* Language and Sign In */}
           {user && (
-            <div className="flex items-center space-x-5">
+            <div className="flex mx-auto items-center space-x-5">
               {GptSearch && (
                 <select
                   className="bg-transparent px-4 py-[5px] active:text-white text-white border border-gray-500 rounded"
@@ -75,11 +75,11 @@ const Header = () => {
               <button onClick={handleGptSearch} className=" bg-purple-700 px-4 py-[5px] flex items-center justify-center h-fit  rounded text-white font-[500]">
                 {GptSearch ? "HomePage" : "GptSearch"}
               </button>
-              <img className="w-14 h-14 object-cover" src={user.photoURL} />
+              <img className="w-14 h-14 hidden  object-cover" src={user.photoURL} />
 
               <button
                 onClick={handleSignOut}
-                className="bg-red-600 px-4 py-[5px] flex items-center justify-center h-fit  rounded text-white font-[500]"
+                className="bg-red-600 px-4 py-[5px] text-[16px] lg:text-[20px] flex items-center justify-center h-fit  rounded text-white font-[500]"
               >
                 Sign Out
               </button>

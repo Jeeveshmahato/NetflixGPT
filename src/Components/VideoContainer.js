@@ -6,7 +6,7 @@ const VideoContainer = ({ movieId }) => {
   useMovieTailer(movieId);
 
   return (
-    <div className="w-full">
+    <div className="w-full pt-[-20px] ">
       <iframe
         className="w-full aspect-video"
         src={`https://www.youtube.com/embed/${TailerVideo?.key}?autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0&loop=1`}

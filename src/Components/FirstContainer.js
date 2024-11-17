@@ -12,9 +12,12 @@ const FirstContainer = () => {
   const { title, overview, id } = mainMovie;
   return (
     <>
-      <TitleContainer title={title} overview={overview} />
+    <div className=" pt-[100px] lg:pt-0">
 
-      <VideoContainer movieId={id} />
+    <TitleContainer title={title} overview={overview} />
+
+<VideoContainer movieId={id} />
+    </div>
     </>
   );
 };
