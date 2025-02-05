@@ -1,15 +1,1 @@
-#Features
--Login?Signup
-    -Sign In /Sign Up Form
-    -Redirect to Browse Page
-
--Browse (after authentication)
-    -Header
-    -Main Movie
-        -Tailer in Background
-        -Title & Description
-        -moviewSuggestions
-            -Movelists * n
--NetflixGPT
-    -Serach Bar
-    -Movie Suggestions
+![Netflix_Clone](https://github.com/user-attachments/assets/6a3c2694-d426-4a06-a581-98814f241786)
