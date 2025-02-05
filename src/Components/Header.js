@@ -73,7 +73,7 @@ const Header = () => {
                 </select>
               )}
               <button onClick={handleGptSearch} className=" bg-purple-700 px-4 py-[5px] flex items-center justify-center h-fit  rounded text-white font-[500]">
-                {GptSearch ? "HomePage" : "GptSearch"}
+                {GptSearch ? "HomePage" : "Search"}
               </button>
               <img className="w-14 h-14 hidden  object-cover" src={user.photoURL} />
 
