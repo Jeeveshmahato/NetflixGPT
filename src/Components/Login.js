@@ -143,12 +143,12 @@ function SignIn() {
               <button className="text-white w-full bg-[#3d3937] text-[14px] bg-opacity-70 px-8 py-[10px] font-[500] rounded-lg  text-lg hover:bg-opacity-80 transition duration-300">
                 Use a sign-in code
               </button> */}
-              <a
+              {/* <a
                 href="#"
                 className="hover:underline text-white text-[12px] font-[400]"
               >
                 {!signUp ? "Forgot password?" : "Sign In Now..."}
-              </a>
+              </a> */}
             </div>
 
             <div
