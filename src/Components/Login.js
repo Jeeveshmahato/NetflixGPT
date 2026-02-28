@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import Header from "./Header";
 import Validate from "../Utils/Validate";
 import { auth } from "../Utils/Firebase";
@@ -14,6 +15,7 @@ import { avatar, backgroundImage } from "../Utils/constant";
 function SignIn() {
   const [signUp, setSignUp] = useState(false);
   const [message, setMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
   const handleSign = () => {
@@ -75,64 +77,76 @@ function SignIn() {
     >
       <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
       <Header />
-      <div className="bg-transparent z-10 w-full h-full flex justify-center items-center">
-        <div className="bg-black bg-opacity-50 bg-blend-overlay p-10 rounded-md w-[380px]">
-          <h2 className="text-2xl text-white font-bold mb-4">
+      <div className="bg-transparent z-10 w-full h-full flex justify-center items-center px-4">
+        <div className="bg-black/75 backdrop-blur-sm p-8 sm:p-12 rounded-md w-full max-w-[400px]">
+          <h2 className="text-3xl text-white font-bold mb-7">
             {!signUp ? "Sign In" : "Sign Up"}
           </h2>
           <form onSubmit={(e) => e.preventDefault()}>
             {signUp && (
-              <div className="mb-4 w-full">
+              <div className="mb-5 w-full">
                 <input
                   ref={name}
                   type="text"
                   placeholder="Full name"
-                  className="w-full p-3 text-[12px] bg-transparent border border-gray-500 text-white rounded-md focus:outline-none"
+                  className="w-full p-4 text-sm bg-[#333] border border-[#333] text-white rounded focus:outline-none focus:border-white/50 placeholder-gray-400 transition-colors"
                 />
               </div>
             )}
-            <div className="mb-4">
+            <div className="mb-5">
               <input
                 ref={email}
                 type="email"
                 placeholder="Email or mobile number"
-                className="w-full p-3 text-[12px] bg-transparent border border-gray-500 text-white rounded-md focus:outline-none"
+                className="w-full p-4 text-sm bg-[#333] border border-[#333] text-white rounded focus:outline-none focus:border-white/50 placeholder-gray-400 transition-colors"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-5 relative">
               <input
                 ref={password}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 placeholder="Password"
-                className="w-full p-3 text-[12px] bg-transparent border border-gray-500 text-white rounded-md focus:outline-none"
+                className="w-full p-4 pr-12 text-sm bg-[#333] border border-[#333] text-white rounded focus:outline-none focus:border-white/50 placeholder-gray-400 transition-colors"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-1"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <IoEyeOffOutline size={20} />
+                ) : (
+                  <IoEyeOutline size={20} />
+                )}
+              </button>
             </div>
-            {message && <p className="text-red-600 text-sm mb-2">{message}</p>}
-            <div className="flex justify-center items-center font-[300] flex-col gap-4">
+            {message && <p className="text-red-500 text-sm mb-4">{message}</p>}
+            <div className="flex justify-center items-center flex-col gap-4">
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className="w-full py-[10px] bg-red-600 text-[12px] hover:bg-red-700 text-white font-[500] rounded-md"
+                className="w-full py-3 bg-red-600 text-base hover:bg-red-700 text-white font-semibold rounded transition-colors"
               >
                 {!signUp ? "Sign In" : "Sign Up"}
               </button>
             </div>
             <div
               onClick={handleSign}
-              className="mt-3 text-[14px] font-[300] text-white cursor-pointer"
+              className="mt-4 text-base text-gray-400 cursor-pointer"
             >
               {!signUp ? (
                 <p>
                   New to Netflix?&nbsp;
-                  <span className="font-[400] hover:underline">
+                  <span className="text-white font-medium hover:underline">
                     Sign up now.
                   </span>
                 </p>
               ) : (
                 <p>
                   Already have an account?&nbsp;
-                  <span className="font-[400] hover:underline">
+                  <span className="text-white font-medium hover:underline">
                     Sign in now.
                   </span>
                 </p>

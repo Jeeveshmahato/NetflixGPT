@@ -7,6 +7,7 @@ import { addUser, removeUser } from "../Utils/userSlice";
 import { Logo, SelectLanguage } from "../Utils/constant";
 import { addSearch } from "../Utils/GptSlice";
 import { changeLanguage } from "../Utils/LanguageSlice";
+import { IoGlobeOutline, IoChevronDown } from "react-icons/io5";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -47,40 +48,44 @@ const Header = () => {
       <div className="absolute z-10 px-[20px] lg:px-32 flex lg:flex-row flex-col justify-between w-full">
         <img className="w-40 mx-auto" src={Logo} alt="Netflix Logo" />
         {user && (
-          <div className="flex mx-auto items-center space-x-5">
+          <div className="flex mx-auto items-center space-x-4">
             {GptSearch && (
-              <select
-                className="bg-transparent px-4 py-[5px] active:text-white text-white border border-gray-500 rounded"
-                name="language"
-                onChange={handleLang}
-              >
-                {SelectLanguage.map((lang) => (
-                  <option
-                    key={lang.identifier}
-                    className="active:text-white text-black"
-                    value={lang.identifier}
-                  >
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative inline-flex items-center">
+                <IoGlobeOutline className="absolute left-3 text-white pointer-events-none" size={16} />
+                <select
+                  className="appearance-none bg-black/60 pl-9 pr-8 py-2 text-sm text-white border border-gray-500 rounded hover:border-white focus:border-white focus:outline-none cursor-pointer transition-colors"
+                  name="language"
+                  onChange={handleLang}
+                >
+                  {SelectLanguage.map((lang) => (
+                    <option
+                      key={lang.identifier}
+                      className="bg-black text-white"
+                      value={lang.identifier}
+                    >
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
+                <IoChevronDown className="absolute right-2 text-white pointer-events-none" size={14} />
+              </div>
             )}
             <button
               onClick={handleGptSearch}
-              className="bg-purple-700 px-4 py-[5px] flex items-center justify-center h-fit rounded text-white font-[500]"
+              className="bg-purple-700 px-4 py-2 flex items-center justify-center h-fit rounded text-sm text-white font-medium hover:bg-purple-800 transition-colors"
             >
               {GptSearch ? "HomePage" : "Search"}
             </button>
             {user.photoURL && (
               <img
-                className="w-14 h-14 object-cover rounded-full"
+                className="w-10 h-10 object-cover rounded-full"
                 src={user.photoURL}
                 alt="User avatar"
               />
             )}
             <button
               onClick={handleSignOut}
-              className="bg-red-600 px-4 py-[5px] text-[16px] lg:text-[20px] flex items-center justify-center h-fit rounded text-white font-[500]"
+              className="bg-red-600 px-4 py-2 text-sm lg:text-base flex items-center justify-center h-fit rounded text-white font-medium hover:bg-red-700 transition-colors"
             >
               Sign Out
             </button>
