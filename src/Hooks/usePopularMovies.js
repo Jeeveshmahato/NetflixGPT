@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNowPopularMovies } from "../Utils/movieSlice";
 import { API_OPTIONS } from "../Utils/constant";
 
 const usePopularMovies = () => {
   const dispatch = useDispatch();
-  const nowPopularMovie = useSelector((store) => store.movies.nowPopularMovie);
-  const getPopularMovies = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1r",
-      API_OPTIONS
-    );
-    const json = await data.json();
-    // console.log(json.results);
-    dispatch(addNowPopularMovies(json.results));
-  };
+  const nowPopularMovies = useSelector((store) => store.movies.nowPopularMovies);
+
   useEffect(() => {
-    !nowPopularMovie && getPopularMovies();
+    if (nowPopularMovies) return;
+
+    const getPopularMovies = async () => {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        API_OPTIONS
+      );
+      if (!response.ok) return;
+      const json = await response.json();
+      dispatch(addNowPopularMovies(json.results));
+    };
+
+    getPopularMovies();
   }, []);
 };
 

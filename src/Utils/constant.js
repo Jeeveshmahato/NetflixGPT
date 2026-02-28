@@ -7,13 +7,12 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ` + process.env.REACT_APP_TMDB_KEY,
+    Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
   },
 };
-const API_key = "b94b9ae4b33a7838558e962c3bd74f82";
 export const Image_URL = "https://image.tmdb.org/t/p/w500/";
 export const SelectLanguage = [
-  { identifer: "English", name: "English" },
-  { identifer: "Hindi", name: "Hindi" },
-  { identifer: "Spanish", name: "Spanish" },
+  { identifier: "English", name: "English" },
+  { identifier: "Hindi", name: "Hindi" },
+  { identifier: "Spanish", name: "Spanish" },
 ];
