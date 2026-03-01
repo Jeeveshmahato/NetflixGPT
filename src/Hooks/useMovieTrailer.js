@@ -23,7 +23,7 @@ const useMovieTrailer = (movieId) => {
     };
 
     getVideo();
-  }, [movieId]);
+  }, [movieId, dispatch, trailer]);
 };
 
 export default useMovieTrailer;

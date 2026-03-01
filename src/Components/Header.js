@@ -34,7 +34,8 @@ const Header = () => {
       }
     });
     return () => unSubscribe();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, navigate]);
 
   const handleSignOut = () => {
     signOut(auth).catch((error) => {

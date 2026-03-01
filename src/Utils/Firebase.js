@@ -24,5 +24,6 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+// initializeApp must be called before getAuth — the return value is used implicitly
+initializeApp(firebaseConfig);
 export const auth = getAuth();
