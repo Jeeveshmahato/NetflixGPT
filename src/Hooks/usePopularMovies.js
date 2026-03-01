@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNowPopularMovies } from "../Utils/movieSlice";
+import { addNowPopularMovies, setPagination } from "../Utils/movieSlice";
 import { API_OPTIONS } from "../Utils/constant";
 
 const usePopularMovies = () => {
@@ -18,6 +18,17 @@ const usePopularMovies = () => {
       if (!response.ok) return;
       const json = await response.json();
       dispatch(addNowPopularMovies(json.results));
+      dispatch(
+        setPagination({
+          category: "popular",
+          data: {
+            page: 1,
+            totalPages: json.total_pages,
+            loading: false,
+            hasMore: 1 < json.total_pages,
+          },
+        })
+      );
     };
 
     getPopularMovies();
