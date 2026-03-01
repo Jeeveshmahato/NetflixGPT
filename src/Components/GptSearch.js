@@ -24,27 +24,34 @@ const GptSearch = () => {
     dispatch(addGptMovies({ searchMovie: findMovie, GptMovies: json.results }));
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleButton();
+  };
+
   return (
     <div
-      className="flex flex-col items-center relative justify-center gap-3 h-screen bg-cover"
+      className="flex flex-col items-center relative min-h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="absolute inset-0 bg-black opacity-70 z-0"></div>
-      <div className="z-10 flex items-center">
-        <input
-          ref={inputtext}
-          type="text"
-          className="h-fit border-4 border-black p-3"
-          placeholder={lang[langkey].gptSearchPlaceholder}
-        />
-        <button
-          onClick={handleButton}
-          className="bg-red-600 px-4 py-3 flex items-center justify-center h-fit rounded text-white font-[500]"
-        >
-          {lang[langkey].search}
-        </button>
+      <div className="absolute inset-0 bg-black/80"></div>
+      <div className="z-10 w-full max-w-2xl px-4 sm:px-6 pt-28 sm:pt-36">
+        <div className="flex w-full rounded-full overflow-hidden shadow-lg">
+          <input
+            ref={inputtext}
+            type="text"
+            onKeyDown={handleKeyDown}
+            className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 border border-gray-600 rounded-l-full focus:outline-none focus:border-red-500 text-base transition-colors min-h-[44px]"
+            placeholder={lang[langkey].gptSearchPlaceholder}
+          />
+          <button
+            onClick={handleButton}
+            className="bg-red-600 px-4 sm:px-8 py-3 sm:py-4 text-white font-semibold text-base hover:bg-red-700 transition-colors whitespace-nowrap min-h-[44px]"
+          >
+            {lang[langkey].search}
+          </button>
+        </div>
       </div>
-      <div className="px-[20px] z-10">
+      <div className="z-10 w-full mt-8 pb-8">
         <GptMovies />
       </div>
     </div>

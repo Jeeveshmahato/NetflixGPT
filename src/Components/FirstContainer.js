@@ -9,7 +9,7 @@ const FirstContainer = () => {
   const { title, overview, id } = movies[0];
 
   return (
-    <div className="pt-[100px] lg:pt-0">
+    <div className="relative pt-16 sm:pt-0">
       <TitleContainer title={title} overview={overview} />
       <VideoContainer movieId={id} />
     </div>

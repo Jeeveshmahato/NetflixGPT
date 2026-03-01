@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Utils/Firebase";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,13 @@ const Header = () => {
   const GptSearch = useSelector((store) => store.gpt.SearchGpt);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
@@ -44,16 +51,27 @@ const Header = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-b from-black">
-      <div className="absolute z-10 px-[20px] lg:px-32 flex lg:flex-row flex-col justify-between w-full">
-        <img className="w-40 mx-auto" src={Logo} alt="Netflix Logo" />
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-black/95 shadow-lg" : "bg-gradient-to-b from-black/80 via-black/40 to-transparent"
+      }`}
+    >
+      <div className="flex items-center justify-between px-3 sm:px-6 lg:px-12 py-2 sm:py-3">
+        <img
+          className="w-20 sm:w-28 lg:w-36"
+          src={Logo}
+          alt="Netflix Logo"
+        />
         {user && (
-          <div className="flex mx-auto items-center space-x-4">
+          <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4">
             {GptSearch && (
               <div className="relative inline-flex items-center">
-                <IoGlobeOutline className="absolute left-3 text-white pointer-events-none" size={16} />
+                <IoGlobeOutline
+                  className="absolute left-2 sm:left-3 text-white pointer-events-none"
+                  size={14}
+                />
                 <select
-                  className="appearance-none bg-black/60 pl-9 pr-8 py-2 text-sm text-white border border-gray-500 rounded hover:border-white focus:border-white focus:outline-none cursor-pointer transition-colors"
+                  className="appearance-none bg-black/60 pl-7 sm:pl-9 pr-6 sm:pr-8 py-1.5 sm:py-2 text-xs sm:text-sm text-white border border-gray-500 rounded hover:border-white focus:border-white focus:outline-none cursor-pointer transition-colors min-h-[36px] sm:min-h-[40px]"
                   name="language"
                   onChange={handleLang}
                 >
@@ -67,32 +85,36 @@ const Header = () => {
                     </option>
                   ))}
                 </select>
-                <IoChevronDown className="absolute right-2 text-white pointer-events-none" size={14} />
+                <IoChevronDown
+                  className="absolute right-1.5 sm:right-2 text-white pointer-events-none"
+                  size={12}
+                />
               </div>
             )}
             <button
               onClick={handleGptSearch}
-              className="bg-purple-700 px-4 py-2 flex items-center justify-center h-fit rounded text-sm text-white font-medium hover:bg-purple-800 transition-colors"
+              className="bg-purple-700 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-sm text-white font-medium hover:bg-purple-800 transition-colors whitespace-nowrap min-h-[36px] sm:min-h-[44px]"
             >
-              {GptSearch ? "HomePage" : "Search"}
+              {GptSearch ? "Home" : "Search"}
             </button>
-            {user.photoURL && (
+            {user.photoURL && /^https:\/\//.test(user.photoURL) && (
               <img
-                className="w-10 h-10 object-cover rounded-full"
+                className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-cover rounded"
                 src={user.photoURL}
                 alt="User avatar"
+                referrerPolicy="no-referrer"
               />
             )}
             <button
               onClick={handleSignOut}
-              className="bg-red-600 px-4 py-2 text-sm lg:text-base flex items-center justify-center h-fit rounded text-white font-medium hover:bg-red-700 transition-colors"
+              className="bg-red-600 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-sm text-white font-medium hover:bg-red-700 transition-colors min-h-[36px] sm:min-h-[44px]"
             >
               Sign Out
             </button>
           </div>
         )}
       </div>
-    </div>
+    </header>
   );
 };
 

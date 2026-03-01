@@ -10,7 +10,7 @@ const SecondContainer = () => {
   );
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="-mt-12 sm:-mt-24 lg:-mt-48 relative z-20 flex flex-col gap-6 sm:gap-8 pb-8">
       <MoviesList title="Now Playing" movies={playingMovies} />
       <MoviesList title="Popular" movies={popularMovies} />
       <MoviesList title="Top Rated" movies={topMovies} />
