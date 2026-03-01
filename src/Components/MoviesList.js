@@ -9,6 +9,10 @@ const MoviesList = ({ title, movies, categoryKey }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
+  // Keep a stable ref to fetchMore so the observer never needs to reconnect
+  const fetchMoreRef = useRef(fetchMore);
+  fetchMoreRef.current = fetchMore;
+
   useEffect(() => {
     const sentinel = sentinelRef.current;
     const container = scrollContainerRef.current;
@@ -17,7 +21,7 @@ const MoviesList = ({ title, movies, categoryKey }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          fetchMore();
+          fetchMoreRef.current();
         }
       },
       {
@@ -29,7 +33,7 @@ const MoviesList = ({ title, movies, categoryKey }) => {
 
     observer.observe(sentinel);
     return () => observer.disconnect();
-  }, [fetchMore]);
+  }, []); // Stable — observer set up once
 
   // Track scroll position for arrow visibility
   useEffect(() => {
@@ -86,19 +90,18 @@ const MoviesList = ({ title, movies, categoryKey }) => {
           {movies.map((movie) => (
             <MovieCard key={movie.id} posterPath={movie.poster_path} />
           ))}
-          {/* Sentinel element for infinite scroll */}
-          {hasMore && (
-            <div
-              ref={sentinelRef}
-              className="flex-shrink-0 w-[80px] flex items-center justify-center"
-            >
-              {loading && (
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
-                </div>
-              )}
-            </div>
-          )}
+          {/* Sentinel element for infinite scroll — always rendered so ref stays attached */}
+          <div
+            ref={sentinelRef}
+            className="flex-shrink-0 w-[80px] flex items-center justify-center"
+            style={{ display: hasMore ? "flex" : "none" }}
+          >
+            {loading && (
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right scroll arrow */}

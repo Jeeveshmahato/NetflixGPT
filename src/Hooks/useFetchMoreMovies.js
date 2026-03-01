@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../Utils/constant";
 import {
@@ -35,13 +35,19 @@ const useFetchMoreMovies = (categoryKey) => {
     (store) => store.movies.pagination[categoryKey]
   );
 
+  // Use a ref to always read the latest pagination without
+  // recreating fetchMore on every Redux state change.
+  const paginationRef = useRef(pagination);
+  paginationRef.current = pagination;
+
   const fetchMore = useCallback(async () => {
-    if (!pagination || pagination.loading || !pagination.hasMore) return;
+    const current = paginationRef.current;
+    if (!current || current.loading || !current.hasMore) return;
 
     const config = CATEGORY_CONFIG[categoryKey];
     if (!config) return;
 
-    const nextPage = pagination.page + 1;
+    const nextPage = current.page + 1;
 
     dispatch(
       setPagination({
@@ -79,7 +85,7 @@ const useFetchMoreMovies = (categoryKey) => {
         })
       );
     }
-  }, [dispatch, categoryKey, pagination]);
+  }, [dispatch, categoryKey]); // Stable — no pagination in deps
 
   return {
     fetchMore,
