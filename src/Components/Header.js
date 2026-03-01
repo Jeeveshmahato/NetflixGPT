@@ -103,7 +103,12 @@ const Header = () => {
                 className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-cover rounded"
                 src={user.photoURL}
                 alt="User avatar"
+                crossOrigin="anonymous"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://lh3.googleusercontent.com/a/default-user=s96-c";
+                }}
               />
             )}
             <button
